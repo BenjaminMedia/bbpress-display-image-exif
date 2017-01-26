@@ -1,0 +1,37 @@
+.exif{font-size:14px;}
+.mdTxt p{font-size:14px;}
+.mdForumAttachment{clear:both}
+.mdForum.comment{margin:0}
+.mdForum.comment.main{padding:0 15px}
+.mdForum.comment .body-field-wrapper{width:630px;overflow:hidden}
+.mdForum.comment p{padding:0 0 15px}
+.mdForum.comment fieldset{margin:0 0 15px}
+.mdForum.comment fieldset fieldset, .mdForum.comment .mdFormItemWrap, .mdForum.comment .mdFormReqWrap, .mdForum.comment .mdFormSelectWrap{margin:0 0 10px;width:630px}
+.mdForum.comment .fieldset-wrapper{margin:0 0 10px}
+.mdForum.comment .mdFormRadioWrap{margin:0 0 0 150px}
+.mdForum.comment .attachment .fieldset-wrapper{margin:0 0 10px 150px}
+.mdForumAttachment .mdImg{float:left;width:124px;margin:0 10px 5px 0}
+.mdLabel{background:#5F5F5F;color:#fff;font:10px arial,verdana,sans-serif;margin:0 0 2px;padding:1px 4px;text-transform:uppercase}
+.mdForum.comment #notifications-subscription-form fieldset{margin:0 0 10px}
+.mdForum.comment .mdFormFile{margin:0 0 5px}
+.mdForum .mdFormSubmitWrap, .mdForum .mdFormButtonWrap{overflow:hidden;float:right;margin:0 4px 0 0}
+.page-comment .mdForum.comment label{padding:0 10px;width:130px;font-weight:bold}
+.mdForum.comment .mdFormItemWrap label, .mdForum.comment .mdFormFileWrap label{padding:0}
+.mdForum.comment #attach-wrapper .mdFormSubmitWrap{margin:0}
+.mdForum.comment #attach-wrapper .mdFormSubmitWrap input.mdFormSubmit{float:left;margin:0 85px 0 0}
+.mdForum.comment #attach-wrapper label{float:left;padding:0 0 10px;width:100%}
+.mdForum .mdFormControls{float:right}
+.mdForum.comment .mdFormControls .mdFormSubmitWrap{float:left;display:inline;overflow:hidden;margin:0 5px 0 0}
+body.page-me .mdForum .mdFormControls .mdFormSubmitWrap{float:right;margin:0 0 0 5px}
+.mdForum .form .mdFormControls .mdFormSubmitWrap{margin:0 15px 0 0}
+.mdForum.comment input.mdFormSubmit{margin:0 5px 0 0}
+.page-comment h4{margin:10px 0 20px 10px}
+.mdForum.comment h1{padding:0 0 15px;font:bold 36px/36px arial,verdana,sans-serif}
+.mdForum.comment h2{clear:both}
+.mdForum.comment.main h2, .mdForum.comment .attachments h2{padding:0px 116px 10px 150px}
+.mdForum.comment.main .teaser-checkbox .mdFormCheckboxWrap{margin:0 0 0 225px}
+.mdForum.comment.main .teaser-checkbox .mdFormCheckboxWrap input{margin:0 5px 0 0}
+.mdForum.comment .container-inline p{padding:6px 0 0}
+.mdForum.comment .attachments{margin:0 0 5px;border-bottom:1px solid #D0D0D0}
+.mdForum.comment .attachments fieldset{margin:0 0 0 150px;width:480px}
+.mdForum.comment .attachments .mdFormSubmitWrap{margin:0;padding:0 0 20px}
