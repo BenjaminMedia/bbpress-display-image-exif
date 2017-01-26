@@ -1,0 +1,32 @@
+{
+  "name": "bonnier/bbpress-display-image-exif",
+  "description": "Display images and exif from postmeta below post",
+  "type": "wordpress-plugin",
+  "keywords": ["wordpress", "plugin", "bbpress"],
+  "homepage": "https://github.com/BenjaminMedia/bbpress-display-image-exif",
+  "repositories":[
+    {
+      "type": "composer",
+      "url": "http://wpackagist.org"
+    }
+  ],
+  "authors": [
+    {
+      "name": "Bonnier Publications",
+      "email": "interactive@bonnier.dk",
+      "homepage": "http://bonnierpublications.com"
+    },
+    {
+      "name": "Jonas Kjaergaard",
+      "email": "jonas.kjaergaard@bonnier.dk",
+      "homepage": ""
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/BenjaminMedia/bbpress-display-image-exif/issues",
+    "source": "https://github.com/BenjaminMedia/bbpress-display-image-exif"
+  },
+  "require": {
+    "php": ">=5.6"
+  }
+}
