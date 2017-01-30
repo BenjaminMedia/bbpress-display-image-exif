@@ -4,6 +4,7 @@
  * Plugin Name: bbPress Display Image Exif
  * Plugin URI: https://github.com/BenjaminMedia/bbpress-display-image-exif
  * Description: Display exif data for the images attached in posts and comments
+ * Version: 0.1.1
  * Author:      Jonas Kjærgaard
  * Domain Path: /languages/
  * License:     GPL
@@ -22,6 +23,7 @@ spl_autoload_register(function ($className) {
         require_once(__DIR__ . DIRECTORY_SEPARATOR . Plugin::CLASS_DIR . DIRECTORY_SEPARATOR . $className . '.php');
     }
 });
+
 class Plugin
 {
     /**
@@ -83,12 +85,86 @@ class Plugin
         return $text;
     }
 
+    /**
+     * Displays the image exif data
+     */
     public function displayImageExif(){
         $post_id = get_the_ID();
 
         global $wpdb;
         $rows = $wpdb->get_results("select meta_value from wp_postmeta where meta_key='_bbp_files' and post_id=" . $post_id);
 
+        // Dose it contain a imported image
+        if ($rows !== null) {
+            $this->getImportedImageExif($rows);
+        }
+
+        $this->getImageExif($post_id);
+    }
+
+    /**
+     * Get EXIF data for a uploaded image
+     * @param $post_id
+     */
+    private function getImageExif($post_id)
+    {
+        // Set args for getting children for the post_id
+        $args = [
+            'order' => 'ASC',
+            'post_mime_type' => 'image',
+            'post_parent' => $post_id,
+            'post_status' => null,
+            'post_type' => 'attachment',
+        ];
+
+        $attachments = get_children( $args );
+
+        // Skip if empty
+        if(!$attachments)
+            return;
+
+        $output = "";
+        // Go through every attachment and echo exif data
+        foreach ($attachments as $attachment)
+        {
+            $metadata = wp_get_attachment_metadata($attachment->ID);
+
+            $output .= '
+    <div class="mdForumAttachment">
+    <div class="mdImg">
+    <a href="' . wp_get_attachment_url($attachment->ID) . '"><img src="' . wp_get_attachment_url($attachment->ID) . '" alt="" title="" width="124" height="124" /></a></div>
+    </div>';
+            $exif = '';
+
+            foreach ($metadata['image_meta'] as $key => $value) {
+                if ($key == 'aperture') {
+                    $exif .= ' | <strong>Aperture:</strong>&nbsp;f/' . $value;
+                }
+                if ($key == 'camera') {
+                    $exif .= ' | <strong>Camera:</strong>&nbsp;' . $value;
+                }
+                if ($key == 'shutter_speed') {
+                    $exif .= ' | <strong>Exposure time:</strong>&nbsp;' . self::format_exp_time($value);
+                }
+                if ($key == 'focal_length') {
+                    $exif .= ' | <strong>Focal length:</strong>&nbsp;' . $value . ' mm';
+                }
+                if ($key == 'iso') {
+                    $exif .= ' | <strong>ISO:</strong>&nbsp;' . $value;
+                }
+            }
+
+            $output .= '<span class="mdLabel">exif</span><span class="exif">' . $exif . '</span>';
+        }
+
+        echo $output;
+    }
+
+    /**
+     * Get the data from the import of old images
+     * @param $rows
+     */
+    private function getImportedImageExif($rows) {
         $rows = $rows[0]->meta_value;
         $rows = json_decode($rows);
 
@@ -96,13 +172,13 @@ class Plugin
             $output = "";
             foreach ($rows as $row) {
                 $output .= '
-<div class="mdForumAttachment">
-<div class="mdImg">
-<a href="' . $row->path . '"><img src="' . $row->path . '?w=124&h=124&fit=crop" alt="" title="" width="124" height="124" /></a></div>
-<div class="mdTxt">
-<p>' . self::fixCharacters($row->title) . '</p>
-</div>
-</div>';
+    <div class="mdForumAttachment">
+    <div class="mdImg">
+    <a href="' . $row->path . '"><img src="' . $row->path . '?w=124&h=124&fit=crop" alt="" title="" width="124" height="124" /></a></div>
+    <div class="mdTxt">
+    <p>' . self::fixCharacters($row->title) . '</p>
+    </div>
+    </div>';
                 $exif = '';
                 if ($row->fnumber) {
                     $exif .= ' | <strong>Aperture:</strong>&nbsp;f/' . $row->fnumber;
@@ -138,6 +214,8 @@ class Plugin
      * E.g.:
      * 2 seconds => "2
      * 0.25 second => 1/4
+     * @param $time float
+     * @return string
      */
     private function format_exp_time($time){
         if($time<1){
