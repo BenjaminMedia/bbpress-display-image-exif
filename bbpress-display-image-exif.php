@@ -124,6 +124,7 @@ class Plugin
             return;
 
         $output = "";
+        $exifIsEmpty = false;
         // Go through every attachment and echo exif data
         foreach ($attachments as $attachment)
         {
@@ -137,27 +138,30 @@ class Plugin
             $exif = '';
 
             foreach ($metadata['image_meta'] as $key => $value) {
-                if ($key == 'aperture') {
+                if ($key == 'aperture' && $value != '0') {
                     $exif .= ' | <strong>Aperture:</strong>&nbsp;f/' . $value;
                 }
-                if ($key == 'camera') {
+                if ($key == 'camera' && $value != '') {
                     $exif .= ' | <strong>Camera:</strong>&nbsp;' . $value;
                 }
-                if ($key == 'shutter_speed') {
+                if ($key == 'shutter_speed' && $value != '0') {
                     $exif .= ' | <strong>Exposure time:</strong>&nbsp;' . self::format_exp_time($value);
                 }
-                if ($key == 'focal_length') {
+                if ($key == 'focal_length' && $value != '0') {
                     $exif .= ' | <strong>Focal length:</strong>&nbsp;' . $value . ' mm';
                 }
-                if ($key == 'iso') {
+                if ($key == 'iso' && $value != '0') {
                     $exif .= ' | <strong>ISO:</strong>&nbsp;' . $value;
                 }
             }
+            if (!$exif)
+                $exifIsEmpty = true;
 
-            $output .= '<span class="mdLabel">exif</span><span class="exif">' . $exif . '</span>';
+            $output .= (!$exifIsEmpty) ? '<span class="mdLabel">exif</span><span class="exif">' . $exif . '</span>' : '';
         }
 
-        echo $output;
+        if(!$exifIsEmpty)
+            echo $output;
     }
 
     /**
