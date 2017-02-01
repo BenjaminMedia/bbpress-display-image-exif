@@ -94,7 +94,7 @@ class Plugin
         global $wpdb;
         $rows = $wpdb->get_results("select meta_value from wp_postmeta where meta_key='_bbp_files' and post_id=" . $post_id);
 
-        // Dose it contain a imported image
+        // Does it contain an imported image
         if ($rows !== null) {
             $this->getImportedImageExif($rows);
         }
@@ -120,8 +120,9 @@ class Plugin
         $attachments = get_children( $args );
 
         // Skip if empty
-        if(!$attachments)
+        if (!$attachments) {
             return;
+        }
 
         $output = "";
         $exifIsEmpty = false;
@@ -130,11 +131,6 @@ class Plugin
         {
             $metadata = wp_get_attachment_metadata($attachment->ID);
 
-            $output .= '
-    <div class="mdForumAttachment">
-    <div class="mdImg">
-    <a href="' . wp_get_attachment_url($attachment->ID) . '"><img src="' . wp_get_attachment_url($attachment->ID) . '" alt="" title="" width="124" height="124" /></a></div>
-    </div>';
             $exif = '';
 
             foreach ($metadata['image_meta'] as $key => $value) {
@@ -154,10 +150,20 @@ class Plugin
                     $exif .= ' | <strong>ISO:</strong>&nbsp;' . $value;
                 }
             }
-            if (!$exif)
-                $exifIsEmpty = true;
 
-            $output .= (!$exifIsEmpty) ? '<span class="mdLabel">exif</span><span class="exif">' . $exif . '</span>' : '';
+
+            var_dump($exif);
+
+            //$output .= ($exif) ? '<span class="mdLabel">exif</span><span class="exif">' . $exif . '</span>' : '';
+
+
+            if ($exif) {
+                $output .= '
+    <div class="mdForumAttachment">
+    <div class="mdImg">
+    <a href="' . wp_get_attachment_url($attachment->ID) . '"><img src="' . wp_get_attachment_url($attachment->ID) . '" alt="" title="" width="124" height="124" /></a></div>
+    </div><span class="mdLabel">exif</span><span class="exif">' . $exif . '</span>';
+            }
         }
 
         if(!$exifIsEmpty)
