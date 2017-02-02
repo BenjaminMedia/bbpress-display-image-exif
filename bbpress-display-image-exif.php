@@ -4,6 +4,7 @@
  * Plugin Name: bbPress Display Image Exif
  * Plugin URI: https://github.com/BenjaminMedia/bbpress-display-image-exif
  * Description: Display exif data for the images attached in posts and comments
+ * Version:     0.0.2
  * Author:      Jonas Kjærgaard
  * Domain Path: /languages/
  * License:     GPL
@@ -98,7 +99,7 @@ class Plugin
                 $output .= '
 <div class="mdForumAttachment">
 <div class="mdImg">
-<a href="' . $row->path . '"><img src="' . $row->path . '?w=124&h=124&fit=crop" alt="" title="" width="124" height="124" /></a></div>
+<a rel="lightbox" href="' . $row->path . '"><img src="' . $row->path . '?w=124&h=124&fit=crop" alt="" title="" width="124" height="124" /></a></div>
 <div class="mdTxt">
 <p>' . self::fixCharacters($row->title) . '</p>
 </div>
