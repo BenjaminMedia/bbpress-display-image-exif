@@ -4,6 +4,7 @@
  * Plugin Name: bbPress Display Image Exif
  * Plugin URI: https://github.com/BenjaminMedia/bbpress-display-image-exif
  * Description: Display exif data for the images attached in posts and comments
+ * Version:     0.0.2
  * Author:      Jonas Kjærgaard
  * Domain Path: /languages/
  * License:     GPL
