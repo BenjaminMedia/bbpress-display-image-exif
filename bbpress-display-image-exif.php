@@ -98,7 +98,7 @@ class Plugin
                 $output .= '
 <div class="mdForumAttachment">
 <div class="mdImg">
-<a href="' . $row->path . '"><img src="' . $row->path . '?w=124&h=124&fit=crop" alt="" title="" width="124" height="124" /></a></div>
+<a rel="lightbox" href="' . $row->path . '"><img src="' . $row->path . '?w=124&h=124&fit=crop" alt="" title="" width="124" height="124" /></a></div>
 <div class="mdTxt">
 <p>' . self::fixCharacters($row->title) . '</p>
 </div>
